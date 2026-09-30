@@ -1,4 +1,4 @@
-import {Directive, HostListener} from "@angular/core";
+import {Directive, HostListener, Input} from "@angular/core";
 
 @Directive({
   standalone: true,
@@ -10,6 +10,9 @@ import {Directive, HostListener} from "@angular/core";
   }
 })
 export class SafeLinkDirective {
+  @Input()
+  public queryParam: string = 'myapp';
+
   constructor() {
     console.log('SafeLink Directive is active')
   }
@@ -17,6 +20,8 @@ export class SafeLinkDirective {
   onConfirmLeavePage(event: MouseEvent) {
     const wantsToLeave = window.confirm('Do you want to leave the app')
     if(wantsToLeave) {
+      const address = (event.target as HTMLAnchorElement).href;
+      (event.target as HTMLAnchorElement).href = address + '?from=' + this.queryParam;
       return;
     }
 
