@@ -1,4 +1,5 @@
 import {Directive, ElementRef, HostListener, inject, Input} from "@angular/core";
+import {LogDirective} from "./log.directive";
 
 @Directive({
   standalone: true,
@@ -7,7 +8,8 @@ import {Directive, ElementRef, HostListener, inject, Input} from "@angular/core"
   // Second method with @HostListener
   host: {
     '(click)': 'onConfirmLeavePage($event)'
-  }
+  },
+  hostDirectives: [LogDirective]
 })
 export class SafeLinkDirective {
   @Input()
